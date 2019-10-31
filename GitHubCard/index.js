@@ -24,7 +24,7 @@ axios.get('https://api.github.com/users/ryankayne')
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
-const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+const followersArray = ['squashgray', 'GodSeer', 'MarFan', 'cstewart94', 'bigknell'];
 followersArray.forEach ((name => {
   axios.get(`https://api.github.com/users/${name}`)
   .then(response => {
@@ -103,10 +103,10 @@ function random(object) {
   name.textContent = object.data.name;
   username.textContent = object.data.login;
   location.textContent = `Location: ${object.data.location}`;
-  github.textContent = object.data.html_url;
-  followers.textContent = object.data.followers;
-  following.textContent = object.data.following;
-  bio.textContent = object.data.bio;
+  github.textContent = `GitHub: ${object.data.html_url}`;
+  followers.textContent = `Followers: ${object.data.followers}`;
+  following.textContent = `Following: ${object.data.following}`;
+  bio.textContent = `Bio: ${object.data.bio}`;
 
 return card;
 
