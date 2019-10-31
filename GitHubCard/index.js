@@ -2,11 +2,12 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+
 axios.get('https://api.github.com/users/ryankayne')
   .then(response => {
     console.log(response);
-    let myInfo = response.data;
-        
+    const container = document.querySelector('.cards');
+    container.appendChild(random(response));
   })
   .catch( error => {
     //
@@ -23,7 +24,19 @@ axios.get('https://api.github.com/users/ryankayne')
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
-
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+followersArray.forEach ((name => {
+  axios.get(`https://api.github.com/users/${name}`)
+  .then(response => {
+    console.log(response);
+    const container = document.querySelector('.cards');
+    container.appendChild(random(response));
+  })
+  .catch( error => {
+    //
+    console.log(error);
+  })
+}))
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -34,7 +47,7 @@ axios.get('https://api.github.com/users/ryankayne')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -85,7 +98,18 @@ function random(object) {
   cardInfo.classList.add('card-info');
   name.classList.add('name');
   username.classList.add('username');
-  
+
+  image.src = object.data.avatar_url;
+  name.textContent = object.data.name;
+  username.textContent = object.data.login;
+  location.textContent = `Location: ${object.data.location}`;
+  github.textContent = object.data.html_url;
+  followers.textContent = object.data.followers;
+  following.textContent = object.data.following;
+  bio.textContent = object.data.bio;
+
+return card;
+
 }
 
 /* List of LS Instructors Github username's: 
